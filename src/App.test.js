@@ -1,6 +1,7 @@
 import { getByTestId, render, screen, fireEvent } from '@testing-library/react';
 import { logRoles } from '@testing-library/react';
 import App from './App';
+import {replaceCamelWithSpaces} from './App'
 
 // test('renders learn react link', () => {
 //   render(<App />);
@@ -80,6 +81,18 @@ test('if background color changes from blue to gray when disabled', () => {
   expect(colorButton).toHaveStyle({backgroundColor: 'gray'})
 })
 
+describe('spaces before camel-case letters', () => {
+  test('work for no inner capital letters', () => {
+    expect(replaceCamelWithSpaces('Red')).toBe('Red')
+  })
+  test('works for one inner capital letter', () => {
+    expect(replaceCamelWithSpaces('MidnightBlue')).toBe('Midnight Blue')
+  })
+  test('works for multiple inner capital letters', () => {
+    expect(replaceCamelWithSpaces('MediumVioletRed')).toBe('Medium Violet Red')
+  })
+})
+
 // React Testing Library helps with:
   // Rendering components into virtual DOM
   // Searching virtual DOM
@@ -124,3 +137,9 @@ test('if background color changes from blue to gray when disabled', () => {
         // Cons: 
           // more difficult to debug failing tests
           // tests not coupled closely with the code, so it's more difficult to tell which parts of the code are causing the tests to fail
+
+// When to Unit Test
+  // When functions are separate from components
+  // when functions are used by several components
+  // when functions have complex logic -- when it's too difficult to test with functional tests
+    // ie. when there are too many edge cases 
